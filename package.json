@@ -1,0 +1,14 @@
+{
+  "name": "run-impulse",
+  "version": "1.0.0",
+  "description": "Used to send Impulse Reference to Firebase",
+  "main": "edge-impulse-standalone.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^9.8.1"
+  }
+}

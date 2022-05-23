@@ -137,8 +137,8 @@ classifier
         .map((n) => Number(n))
     );
 
-    // console.log(result);
-    // console.log(result.results[0].value);
+    console.log(result);
+    console.log(result.results[0].value);
 
     // Put values in one array and get max
     // Wherever the index with highest value is = Classification
@@ -164,9 +164,16 @@ classifier
     console.log("label: ", classification);
     console.log("maxPrediction: ", maxPrediction);
 
+    const classifications = {
+      "fall-flat": "Fall Flat",
+      "fall-side": "Fall Side",
+      "stable": "Stable",
+      "stand-up": "Stand Up",
+    };
+
     // Update
     await Firebase.firestore().collection("patients").doc("patient1").update({
-      status: classification,
+      status: classifications[classification],
     });
 
     app.delete();
@@ -178,7 +185,6 @@ classifier
         id: 4,
         status: "Stable"
     }); */
-
   })
   .catch((err) => {
     console.error("Failed to initialize classifier", err);

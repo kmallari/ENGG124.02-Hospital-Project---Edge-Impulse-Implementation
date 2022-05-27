@@ -104,12 +104,18 @@ class EdgeImpulseClassifier {
     return { ptr: ptr, buffer: heapBytes };
   }
 }
+
 /*
 if (!process.argv[2]) {
     return console.error('Requires one parameter (a comma-separated list of raw features, or a file pointing at raw features)');
-}*/
+}
+*/
 
+console.log("process.argv ", process.argv[3]);
+
+const patient = process.argv[3];
 let features = process.argv[2];
+
 if (fs.existsSync(features)) {
   features = fs.readFileSync(features, "utf-8");
 }
@@ -140,13 +146,6 @@ classifier
     console.log(result);
     console.log(result.results[0].value);
 
-    // Put values in one array and get max
-    // Wherever the index with highest value is = Classification
-    // 0: Fell Fall
-    // 1: Fell Sidewards
-    // 2: Stable
-    // 3: Standing Up
-
     let maxPrediction = -Infinity;
     let classification;
 
@@ -172,19 +171,11 @@ classifier
     };
 
     // Update
-    await Firebase.firestore().collection("patients").doc("patient1").update({
+    await Firebase.firestore().collection("patients").doc(patient).update({
       status: classifications[classification],
     });
 
     app.delete();
-
-    /* //Adding
-    db.collection("patients").add({
-        name: "Name",
-        age: 12,
-        id: 4,
-        status: "Stable"
-    }); */
   })
   .catch((err) => {
     console.error("Failed to initialize classifier", err);
